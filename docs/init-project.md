@@ -31,6 +31,12 @@ docker compose run --rm backend nest generate application
 docker compose run --rm frontend npx nuxi@latest init frontend
 ```
 
-- 一個上の directory (app) に作成された file をすべて移動
-- `src` directory 作成
-- `src` directory に `page`, `styles` directory を入れる
+- `frontend/frontend` directory の全ての file を `frontend` に移動させる
+
+- typescript の設定
+
+  - install typescript
+
+    ```bash
+    docker compose run --rm frontend npm install typescript @types/node --save-dev
+    ```

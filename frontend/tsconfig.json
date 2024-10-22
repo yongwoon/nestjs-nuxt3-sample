@@ -1,4 +1,31 @@
 {
   // https://nuxt.com/docs/guide/concepts/typescript
-  "extends": "./.nuxt/tsconfig.json"
+  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "target": "ESNext", // 最新の JavaScript 機能を利用
+    "module": "ESNext", // ES モジュールのサポート
+    "moduleResolution": "Node", // Node.js スタイルのモジュール解決
+    "strict": true, // 厳格な型チェックを有効化
+    "esModuleInterop": true, // CommonJS と ES モジュールの互換性を確保
+    "skipLibCheck": true, // ライブラリの型チェックをスキップしてビルド時間を短縮
+    "forceConsistentCasingInFileNames": true, // ファイル名の大文字・小文字の整合性を強制
+    "types": ["@types/node"], // Node.js の型定義を含める
+    "baseUrl": ".", // 相対パスの基準をプロジェクトルートに設定
+    "paths": {
+      // Nuxt 3 のエイリアスをサポート
+      "~/*": ["./*"],
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "types/**/*.d.ts", // カスタム型定義ファイルを含める
+    "nuxt.config.ts", // Nuxt の設定ファイルを型チェック
+    "**/*.ts", // 全ての TypeScript ファイルを対象
+    "**/*.vue" // Vue コンポーネントも型チェック
+  ],
+  "exclude": [
+    "node_modules", // 不要なファイルを除外
+    ".output", // ビルド成果物を除外
+    ".nuxt" // Nuxt のビルドディレクトリを除外
+  ]
 }
