@@ -4,7 +4,7 @@ services:
     build:
       context: ./backend
       dockerfile: ./Dockerfile
-    command: npm run start:local:debug
+    command: npm run start:dev
     stdin_open: true
     tty: true
     environment:
@@ -18,7 +18,7 @@ services:
       - db
     volumes:
       - ./backend:/var/www
-      - /var/www/node_modules # コンテナ側の node_modules を優先
+      # - /var/www/node_modules # コンテナ側の node_modules を優先
     ports:
       - "3000:3000"
     networks:
@@ -53,11 +53,10 @@ services:
       dockerfile: ./Dockerfile
       args:
         NODE_ENV: development
-    working_dir: /frontend
-    # command: npm run dev
+    command: npm run dev -- -o
     volumes:
       - ./frontend:/var/www
-      - /var/www/node_modules # コンテナ側の node_modules を優先
+      # - /var/www/node_modules # コンテナ側の node_modules を優先
     ports:
       - "8000:8000"
     stdin_open: true
