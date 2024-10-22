@@ -1,0 +1,71 @@
+services:
+  backend:
+    container_name: dev_nest_nuxt_sample_backend
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    command: npm run start:local:debug
+    stdin_open: true
+    tty: true
+    environment:
+      NODE_ENV: local
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USERNAME: root
+      DB_PASSWORD:
+      DB_NAME: nest_nuxt_sample_development
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/var/www
+      - /var/www/node_modules # コンテナ側の node_modules を優先
+    ports:
+      - "3000:3000"
+    networks:
+      - dev_nest_nuxt_sample_network
+  db:
+    container_name: dev_nest_nuxt_sample_db
+    image: mysql:8.0.33
+    command: >
+      mysqld
+        --default-authentication-plugin=mysql_native_password
+        --character-set-server=utf8mb4
+        --collation-server=utf8mb4_general_ci
+    ports:
+      - "3306:3306"
+    volumes:
+      - dev_nest_nuxt_sample_db_volume:/var/lib/mysql
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      # MYSQL_USER: mysqlusername
+      # MYSQL_PASSWORD: mysqluserpass
+      # MYSQL_ROOT_PASSWORD: mysqlrootpass
+      MYSQL_DATABASE: nest_nuxt_sample_development
+    networks:
+      - dev_nest_nuxt_sample_network
+  frontend:
+    container_name: dev_nest_nuxt_sample_frontend
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+      args:
+        NODE_ENV: development
+    working_dir: /frontend
+    # command: npm run dev
+    volumes:
+      - ./frontend:/var/www
+      - /var/www/node_modules # コンテナ側の node_modules を優先
+    ports:
+      - "8000:8000"
+    stdin_open: true
+    networks:
+      - dev_nest_nuxt_sample_network
+
+networks:
+  dev_nest_nuxt_sample_network:
+
+volumes:
+  dev_nest_nuxt_sample_db_volume:
