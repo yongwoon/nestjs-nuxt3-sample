@@ -10,10 +10,10 @@ services:
     environment:
       NODE_ENV: local
       DB_HOST: db
-      DB_PORT: 3306
-      DB_USERNAME: root
-      DB_PASSWORD:
-      DB_NAME: nest_nuxt_sample_development
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: blog_db
     depends_on:
       - db
     volumes:
