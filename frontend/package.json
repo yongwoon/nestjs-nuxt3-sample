@@ -7,7 +7,10 @@
     "dev": "nuxt dev --port 9000",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint --ext .ts,.js,.vue .",
+    "lint:fix": "eslint --fix --ext .ts,.js,.vue .",
+    "format": "prettier --write \"**/*.{ts,js,vue,css,scss,json}\""
   },
   "dependencies": {
     "nuxt": "^3.13.2",
