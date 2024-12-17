@@ -1,13 +1,8 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { CoreEntity } from '../../common/entities/core.entity';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('posts')
-export class Post {
+export class Post extends CoreEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -16,10 +11,4 @@ export class Post {
 
   @Column('text')
   content: string;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }
