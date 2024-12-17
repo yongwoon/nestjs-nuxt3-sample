@@ -30,7 +30,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: nest_nuxt_sample_development
+      POSTGRES_DB: blog_db
     volumes:
       - dev_nest_nuxt_sample_postgres_data_volume:/var/lib/postgresql/data
     networks:
