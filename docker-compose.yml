@@ -10,10 +10,10 @@ services:
     environment:
       NODE_ENV: local
       DB_HOST: db
-      DB_PORT: 3306
-      DB_USERNAME: root
-      DB_PASSWORD:
-      DB_NAME: nest_nuxt_sample_development
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: blog_db
     depends_on:
       - db
     volumes:
@@ -24,28 +24,18 @@ services:
     networks:
       - dev_nest_nuxt_sample_network
   db:
-    container_name: dev_nest_nuxt_sample_db
-    image: mysql:8.0.33
-    command: >
-      mysqld
-        --default-authentication-plugin=mysql_native_password
-        --character-set-server=utf8mb4
-        --collation-server=utf8mb4_general_ci
+    image: postgres:15-alpine
     ports:
-      - "3307:3306"
-    volumes:
-      - dev_nest_nuxt_sample_db_volume:/var/lib/mysql
-      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf:ro
-    security_opt:
-      - seccomp:unconfined
+      - "5433:5432"
     environment:
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      # MYSQL_USER: mysqlusername
-      # MYSQL_PASSWORD: mysqluserpass
-      # MYSQL_ROOT_PASSWORD: mysqlrootpass
-      MYSQL_DATABASE: nest_nuxt_sample_development
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: blog_db
+    volumes:
+      - dev_nest_nuxt_sample_postgres_data_volume:/var/lib/postgresql/data
     networks:
       - dev_nest_nuxt_sample_network
+
   frontend:
     container_name: dev_nest_nuxt_sample_frontend
     build:
@@ -67,4 +57,4 @@ networks:
   dev_nest_nuxt_sample_network:
 
 volumes:
-  dev_nest_nuxt_sample_db_volume:
+  dev_nest_nuxt_sample_postgres_data_volume:
