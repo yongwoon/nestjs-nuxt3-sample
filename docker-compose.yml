@@ -20,7 +20,7 @@ services:
       - ./backend:/var/www
       # - /var/www/node_modules # コンテナ側の node_modules を優先
     ports:
-      - "3000:3000"
+      - "5001:5001"
     networks:
       - dev_nest_nuxt_sample_network
   db:
