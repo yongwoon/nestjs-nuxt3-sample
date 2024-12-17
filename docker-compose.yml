@@ -58,7 +58,7 @@ services:
       - ./frontend:/var/www
       # - /var/www/node_modules # コンテナ側の node_modules を優先
     ports:
-      - "8000:8000"
+      - "9000:9000"
     stdin_open: true
     networks:
       - dev_nest_nuxt_sample_network
