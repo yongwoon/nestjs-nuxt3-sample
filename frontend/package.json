@@ -13,8 +13,10 @@
     "format": "prettier --write \"**/*.{ts,js,vue,css,scss,json}\""
   },
   "dependencies": {
+    "@tanstack/vue-query": "^5.62.7",
+    "axios": "^1.7.9",
     "nuxt": "^3.13.2",
-    "vue": "latest",
+    "vue": "^3.4.15",
     "vue-router": "latest"
   },
   "devDependencies": {
