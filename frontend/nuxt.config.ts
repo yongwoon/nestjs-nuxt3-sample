@@ -1,12 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  ssr: false,
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
   vite: {
     server: {
       proxy: {
-        '/api': {
-          target: 'http://localhost:5002',
+        '/api/v1': {
+          target: 'http://backend:5002',
           changeOrigin: true,
         },
       },
@@ -15,7 +16,7 @@ export default defineNuxtConfig({
       'process.env.DEBUG': false,
     },
   },
-  css: ['vuetify/styles'],
+  css: ['vuetify/styles', '@mdi/font/css/materialdesignicons.css'],
   build: {
     transpile: ['vuetify'],
   },
