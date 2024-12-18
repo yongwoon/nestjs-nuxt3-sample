@@ -1,22 +1,33 @@
+// utils/api.ts
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: 'https://api.example.com',
+  baseURL: '/api/v1',
   timeout: 5000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
-// 型定義
-interface User {
-  id: number;
-  name: string;
-}
+// Detailed error logging
+api.interceptors.request.use(
+  (config) => {
+    console.log('API Request:', config.method?.toUpperCase(), config.url);
+    return config;
+  },
+  (error) => {
+    console.error('API Request Error:', error);
+    return Promise.reject(error);
+  }
+);
 
-export const fetchUsers = async (): Promise<User[]> => {
-  const { data } = await api.get('/users');
-  return data;
-};
-
-export const fetchUserById = async (id: number): Promise<User> => {
-  const { data } = await api.get(`/users/${id}`);
-  return data;
-};
+api.interceptors.response.use(
+  (response) => {
+    console.log('API Response:', response.status, response.data);
+    return response;
+  },
+  (error) => {
+    console.error('API Response Error:', error.response?.data || error.message);
+    return Promise.reject(error);
+  }
+);

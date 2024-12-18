@@ -13,11 +13,14 @@
     "format": "prettier --write \"**/*.{ts,js,vue,css,scss,json}\""
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
     "@tanstack/vue-query": "^5.62.7",
     "axios": "^1.7.9",
     "nuxt": "^3.13.2",
+    "sass": "^1.83.0",
     "vue": "^3.4.15",
-    "vue-router": "latest"
+    "vue-router": "latest",
+    "vuetify": "^3.7.5"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
