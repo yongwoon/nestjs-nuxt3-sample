@@ -1,6 +1,7 @@
+// composables/usePosts.ts
 import { useQuery, useMutation, useQueryClient } from '@tanstack/vue-query';
 import { postApi } from '~/utils/posts';
-import type { Post, CreatePostDto, UpdatePostDto } from '~/types/post';
+import type { CreatePostDto, UpdatePostDto } from '~/types/post';
 
 export const usePosts = () => {
   const queryClient = useQueryClient();
@@ -19,27 +20,39 @@ export const usePosts = () => {
       }
     },
     staleTime: 1000 * 60, // 1分間はキャッシュを使用
-    refetchOnMount: true,
-    retry: 2,
+    // refetchOnMount: true,
   });
 
-  const post = (id: number) =>
-    useQuery({
+  const post = (id: number) => {
+    console.log('Initializing post query for ID:', id);
+    const query = useQuery({
       queryKey: ['posts', id],
       queryFn: async () => {
-        console.log(`Fetching post ${id}...`);
+        console.log('QueryFn called - Fetching post data for ID:', id);
         try {
-          const data = await postApi.getById(id);
-          console.log(`Post ${id} fetched successfully:`, data);
-          return data;
+          const response = await postApi.getById(id);
+          console.log('API Response:', response);
+          return response;
         } catch (error) {
-          console.error(`Failed to fetch post ${id}:`, error);
+          console.error('API Error:', error);
           throw error;
         }
       },
       enabled: !!id,
+      retry: false, // デバッグのために一時的にリトライを無効化
     });
 
+    // クエリの状態をログ出力
+    console.log('Query state:', {
+      isLoading: query.isLoading,
+      isError: query.isError,
+      data: query.data,
+      error: query.error,
+      enabled: !!id,
+    });
+
+    return query;
+  };
   const createPost = useMutation({
     mutationFn: async (newPost: CreatePostDto) => {
       console.log('Creating new post:', newPost);

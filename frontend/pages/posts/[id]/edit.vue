@@ -1,11 +1,18 @@
+<!-- posts/[id]/edit.vue -->
 <template>
   <v-container>
-    <div v-if="postQuery.isLoading">Loading...</div>
-    <div v-else-if="postQuery.isError">Error: {{ postQuery.error }}</div>
-    <template v-else-if="postQuery.data">
+    <template v-if="pending">
+      <PostCardSkeleton v-for="n in 3" :key="n" />
+    </template>
+
+    <v-alert v-else-if="error" type="error" class="mb-4">
+      Error: {{ error?.message || 'Failed to load posts' }}
+    </v-alert>
+
+    <template v-else-if="data">
       <h1>Edit Post</h1>
       <PostForm
-        :initial-data="postQuery.data"
+        :initial-data="data"
         submit-label="Update"
         :is-loading="updatePost.isPending"
         @submit="handleSubmit"
@@ -20,9 +27,16 @@ import { usePosts } from '~/composables/usePosts';
 
 const route = useRoute();
 const router = useRouter();
+
+console.log('Edit page');
+
 const id = Number(route.params.id);
+
+console.log('Current ID:', id, typeof id);
+
 const { post, updatePost } = usePosts();
-const postQuery = post(id);
+
+const { isPending: pending, isError: error, data } = post(id);
 
 const handleSubmit = async (formData: { title: string; content: string }) => {
   await updatePost.mutateAsync({ id, post: formData });

@@ -33,6 +33,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, watchEffect } from 'vue';
 import { usePosts } from '~/composables/usePosts';
 import PostCard from '~/components/posts/PostCard.vue';
 import PostCardSkeleton from '~/components/posts/PostCardSkeleton.vue';
@@ -56,12 +57,12 @@ const handleDelete = async (id: number) => {
 };
 
 // デバッグ用
-watchEffect(() => {
-  console.log('Query State:', {
-    pending,
-    error,
-    data: data?.length,
-    rawData: data,
-  });
-});
+// watchEffect(() => {
+//   console.log('Query State:', {
+//     pending,
+//     error,
+//     data: data?.length,
+//     rawData: data,
+//   });
+// });
 </script>

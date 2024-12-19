@@ -12,7 +12,13 @@ export const api = axios.create({
 // Detailed error logging
 api.interceptors.request.use(
   (config) => {
-    console.log('API Request:', config.method?.toUpperCase(), config.url);
+    console.log('API Request Config:', {
+      method: config.method?.toUpperCase(),
+      url: config.url,
+      baseURL: config.baseURL,
+      headers: config.headers,
+      data: config.data,
+    });
     return config;
   },
   (error) => {

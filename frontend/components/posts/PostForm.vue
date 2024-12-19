@@ -1,3 +1,4 @@
+<!-- components/posts/PostForm.vue -->
 <template>
   <v-form @submit.prevent="handleSubmit">
     <v-container>
