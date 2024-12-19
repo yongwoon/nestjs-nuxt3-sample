@@ -3,7 +3,7 @@
     <v-row>
       <v-col>
         <h1>Posts</h1>
-        <v-btn to="/posts/create" color="primary" class="mb-4">CREATE NEW POST</v-btn>
+        <v-btn to="/posts/new" color="primary" class="mb-4">CREATE NEW POST</v-btn>
 
         <template v-if="pending">
           <PostCardSkeleton v-for="n in 3" :key="n" />
