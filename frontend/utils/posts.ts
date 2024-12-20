@@ -19,7 +19,7 @@ export const postApi = {
   },
 
   update: async (id: number, post: UpdatePostDto): Promise<Post> => {
-    const { data } = await api.patch<Post>(`/posts/${id}`, post);
+    const { data } = await api.put<Post>(`/posts/${id}`, post);
     return data;
   },
 

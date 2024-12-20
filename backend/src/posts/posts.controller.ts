@@ -31,6 +31,8 @@ export class PostsController {
     return this.postsService.findOne(id);
   }
 
+  // PUT: リソースの完全な置き換え
+  // PATCH: リソースの部分的な更新
   @Put(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
