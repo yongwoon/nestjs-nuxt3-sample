@@ -25,7 +25,6 @@ const handleSubmit = async (formData: { title: string; content: string }) => {
     await createPost.mutateAsync(formData);
     router.push('/');
   } catch (e) {
-    console.error('Failed to create post:', e);
     error.value = e instanceof Error ? e.message : 'Failed to create post';
   } finally {
     isCreating.value = false;

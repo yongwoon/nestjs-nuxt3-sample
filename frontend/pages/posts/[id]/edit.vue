@@ -31,11 +31,7 @@ import PostForm from '~/components/posts/PostForm';
 const route = useRoute();
 const router = useRouter();
 
-console.log('Edit page');
-
 const id = Number(route.params.id);
-
-console.log('Current ID:', id, typeof id);
 
 const { post, updatePost } = usePosts();
 
